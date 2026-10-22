@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  
+  <!-- Social / Link Preview Metadata -->
+  <title>Eurolat Tenerife 2026</title>
+  <meta property="og:title" content="Eurolat Tenerife 2026">
+  <meta property="og:site_name" content="Eurolat Tenerife 2026">
+  <meta property="og:description" content="Official Directory of Participating Members of the European Parliament">
+  <meta property="og:url" content="https://eurolat2026es.netlify.app">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter / Messaging Previews -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Eurolat Tenerife 2026">
+  <meta name="twitter:description" content="Official Directory of Participating Members of the European Parliament">
+  
+  <title>EuroLat Tenerife — Delegation MEP Directory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --eu-blue: #003399;
+      --eu-gold: #FFCC00;
+      --navy-900: #0a1628;
+      --navy-800: #10223d;
+      --card-bg: #ffffff;
+      --body-bg: #f4f6fa;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --border: #e2e8f0;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 6px rgba(0, 35, 102, 0.05);
+      --shadow-md: 0 8px 24px rgba(0, 35, 102, 0.08);
+      --transition: all 0.25s ease-in-out;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--body-bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #05142b 0%, #003399 60%, #0d47a1 100%);
+      color: #fff;
+      padding: 50px 20px 42px;
+      text-align: center;
+      border-bottom: 4px solid var(--eu-gold);
+    }
+    .badge-top {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 204, 0, 0.4);
+      color: #ffe066;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: #e0e7ff;
+      max-width: 780px;
+      margin: 0 auto 12px;
+    }
+    .location-bar {
+      display: inline-flex;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: #fce788;
+      background: rgba(0,0,0,0.25);
+      padding: 5px 16px;
+      border-radius: 999px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+    }
+
+    .controls-wrapper {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box { flex: 1; min-width: 250px; position: relative; }
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px 10px 38px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-box input:focus {
+      border-color: var(--eu-blue);
+      box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.12);
+    }
+    .search-box svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    .counter { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    .counter strong { color: var(--eu-blue); }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0 22px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+    }
+    .section-header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 60px;
+      height: 2px;
+      background: var(--eu-blue);
+    }
+    .section-header h2 { font-size: 1.35rem; font-weight: 700; color: var(--navy-900); }
+    .section-header .section-tag {
+      background: #e0e7ff;
+      color: var(--eu-blue);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .mep-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    /* CHAIR CARD */
+    .chair-wrapper { margin-bottom: 26px; }
+    .chair-card {
+      background: linear-gradient(135deg, #ffffff 0%, #fffdf2 100%);
+      border: 2px solid var(--eu-gold);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      box-shadow: 0 12px 30px rgba(255, 204, 0, 0.16), var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .chair-card::before {
+      content: "★ CO-CHAIR ★";
+      position: absolute;
+      top: 14px;
+      right: -36px;
+      background: var(--eu-gold);
+      color: #0b1a30;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 4px 40px;
+      transform: rotate(45deg);
+    }
+    .chair-photo-wrap {
+      width: 165px;
+      height: 215px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 3px solid var(--eu-gold);
+      background: #e2e8f0;
+      position: relative;
+    }
+    .chair-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .chair-info h3 { font-size: 1.65rem; font-weight: 800; color: var(--navy-900); margin-bottom: 6px; }
+    .chair-info .chair-title { font-size: 1rem; font-weight: 600; color: #b45309; margin-bottom: 12px; }
+
+    /* MEMBER CARDS */
+    .mep-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .mep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .card-photo-container {
+      width: 100%;
+      height: 270px;
+      position: relative;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-photo-container img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .initials-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #94a3b8;
+      background: #e2e8f0;
+    }
+    .mep-details { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
+    .vp-role-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #92400e;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      padding: 3px 8px;
+      border-radius: 999px;
+      align-self: flex-start;
+      margin-bottom: 8px;
+    }
+    .mep-name { font-size: 1.05rem; font-weight: 700; color: var(--navy-900); margin-bottom: 8px; }
+    .mep-meta { display: flex; align-items: center; gap: 8px; margin-top: auto; font-size: 0.85rem; }
+    .badge-group { font-size: 0.74rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+    .badge-country { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+
+    /* BADGE COLORS */
+    .grp-epp     { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .grp-sd      { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .grp-patriots{ background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .grp-ecr     { background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+    .grp-renew   { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+    .grp-greens  { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .grp-left    { background: #fae8ff; color: #86198f; border: 1px solid #f5d0fe; }
+    .grp-ni      { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+    #loadingState {
+      text-align: center;
+      padding: 60px 20px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      background: #0b1a30;
+      color: #94a3b8;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.85rem;
+      border-top: 1px solid #1e293b;
+    }
+    footer a { color: var(--eu-gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .chair-card { flex-direction: column; text-align: center; }
+      .chair-photo-wrap { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-top">★ Euro-Latin American Parliamentary Assembly ★</div>
+    <h1>EuroLat Tenerife Delegation</h1>
+    <p class="subtitle">Official Directory of Participating Members of the European Parliament</p>
+    <div class="location-bar">
+      <span>📍 Santa Cruz de Tenerife, Spain</span>
+      <span>•</span>
+      <span>EP Delegation to EuroLat</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="controls-wrapper">
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="mepSearch" placeholder="Search by name, country, or political group..." onkeyup="filterMEPs()">
+      </div>
+      <div class="counter">
+        Showing <strong id="visibleCount">0</strong> of <span id="totalCount">0</span> Participating MEPs
+      </div>
+    </div>
+
+    <div id="loadingState">Loading delegation list from Google Sheets...</div>
+
+    <div id="contentSections" style="display: none;">
+      <!-- CHAIR -->
+      <section id="section-chair">
+        <div class="section-header">
+          <h2>Assembly Leadership</h2>
+          <span class="section-tag">Co-Chair</span>
+        </div>
+        <div class="chair-wrapper" id="chairContainer"></div>
+      </section>
+
+      <!-- VICE-CHAIRS -->
+      <section id="section-vps">
+        <div class="section-header">
+          <h2>Vice-Chairs of the Assembly</h2>
+          <span class="section-tag" id="vpTag">Executive Bureau</span>
+        </div>
+        <div class="mep-grid" id="vpGrid"></div>
+      </section>
+
+      <!-- PARTICIPATING MEMBERS -->
+      <section id="section-members">
+        <div class="section-header">
+          <h2>Participating Members</h2>
+          <span class="section-tag" id="memberTag">Alphabetical Directory</span>
+        </div>
+        <div class="mep-grid" id="memberGrid"></div>
+      </section>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Euro-Latin American Parliamentary Assembly (EuroLat) • 10th Parliamentary Term</p>
+    <p style="margin-top: 6px; font-size: 0.8rem;">
+      Photographs sourced from the official <a href="https://www.europarl.europa.eu/meps/en/full-list" target="_blank" rel="noopener">European Parliament MEP Directory</a>.
+    </p>
+  </footer>
+
+  <script>
+    // Live CSV export link from your Google Sheet
+    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1d0vP-xvdAXo2Ue6Um94tTIH6Sb-tITtBD7J7ydLupL8/export?format=csv";
+
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const headers = lines[0].split(',').map(h => h.trim());
+      const rows = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        const values = [];
+        let insideQuote = false;
+        let entry = '';
+
+        for (let char of lines[i]) {
+          if (char === '"') {
+            insideQuote = !insideQuote;
+          } else if (char === ',' && !insideQuote) {
+            values.push(entry.trim());
+            entry = '';
+          } else {
+            entry += char;
+          }
+        }
+        values.push(entry.trim());
+
+        const obj = {};
+        headers.forEach((h, index) => {
+          obj[h] = values[index] || '';
+        });
+        rows.push(obj);
+      }
+      return rows;
+    }
+
+    function getGroupClass(grp) {
+      const g = (grp || '').toLowerCase();
+      if (g.includes('epp')) return 'grp-epp';
+      if (g.includes('s&d')) return 'grp-sd';
+      if (g.includes('patriot')) return 'grp-patriots';
+      if (g.includes('ecr')) return 'grp-ecr';
+      if (g.includes('renew')) return 'grp-renew';
+      if (g.includes('green')) return 'grp-greens';
+      if (g.includes('left')) return 'grp-left';
+      return 'grp-ni';
+    }
+
+    function getInitials(name) {
+      return (name || '').split(' ').map(n => n[0]).filter((_, i) => i < 2).join('');
+    }
+
+    function showFallback(img) {
+      img.style.display = 'none';
+      const fb = img.parentElement.querySelector('.initials-fallback');
+      if (fb) fb.style.display = 'flex';
+    }
+
+    async function loadDelegation() {
+      try {
+        const res = await fetch(SHEET_CSV_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}: Ensure Sheet is shared as 'Anyone with the link can view'.`);
+        
+        const csvText = await res.text();
+        const data = parseCSV(csvText);
+
+        const chair = data.find(m => m.role === 'co-chair');
+        const vps = data.filter(m => m.role === 'vp');
+        const members = data.filter(m => m.role === 'member');
+
+        // Automatically sort remaining members A-Z by surname
+        members.sort((a, b) => a.name.localeCompare(b.name));
+
+        // 1. Render Chair
+        if (chair) {
+          document.getElementById('chairContainer').innerHTML = `
+            <div class="chair-card mep-item" data-name="${chair.name}" data-group="${chair.group}" data-country="${chair.country}">
+              <div class="chair-photo-wrap">
+                <img src="https://www.europarl.europa.eu/mepphoto/${chair.id}.jpg" alt="${chair.name}" onerror="showFallback(this)">
+                <div class="initials-fallback">${getInitials(chair.name)}</div>
+              </div>
+              <div class="chair-info">
+                <div class="chair-title">★ ${chair.roleLabel || 'Co-Chair of EuroLat'}</div>
+                <h3>${chair.name}</h3>
+                <p style="color: var(--text-muted); margin-bottom: 14px; max-width: 650px;">
+                  Chair of the European Parliament Delegation to the Euro-Latin American Parliamentary Assembly.
+                </p>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                  <span class="badge-group ${getGroupClass(chair.group)}">${chair.group}</span>
+                  <span class="badge-country">${chair.flag || ''} ${chair.country} ${chair.party ? '(' + chair.party + ')' : ''}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // 2. Render VPs
+        document.getElementById('vpTag').innerText = `${vps.length} Vice-Chairs`;
+        document.getElementById('vpGrid').innerHTML = vps.map(vp => `
+          <div class="mep-card mep-item" data-name="${vp.name}" data-group="${vp.group}" data-country="${vp.country}">
+            <div class="card-photo-container">
+              <img src="https://www.europarl.europa.eu/mepphoto/${vp.id}.jpg" alt="${vp.name}" onerror="showFallback(this)">
+              <div class="initials-fallback">${getInitials(vp.name)}</div>
+            </div>
+            <div class="mep-details">
+              <span class="vp-role-pill">${vp.roleLabel}</span>
+              <div class="mep-name">${vp.name}</div>
+              <div class="mep-meta">
+                <span class="badge-group ${getGroupClass(vp.group)}">${vp.group}</span>
+                <span class="badge-country">${vp.flag || ''} ${vp.country}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        // 3. Render Alphabetical Members
+        document.getElementById('memberTag').innerText = `${members.length} Members`;
+        document.getElementById('memberGrid').innerHTML = members.map(m => `
+          <div class="mep-card mep-item" data-name="${m.name}" data-group="${m.group}" data-country="${m.country}">
+            <div class="card-photo-container">
+              <img src="https://www.europarl.europa.eu/mepphoto/${m.id}.jpg" alt="${m.name}" onerror="showFallback(this)">
+              <div class="initials-fallback">${getInitials(m.name)}</div>
+            </div>
+            <div class="mep-details">
+              <div class="mep-name">${m.name}</div>
+              <div class="mep-meta">
+                <span class="badge-group ${getGroupClass(m.group)}">${m.group}</span>
+                <span class="badge-country">${m.flag || ''} ${m.country}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        const total = data.length;
+        document.getElementById('visibleCount').innerText = total;
+        document.getElementById('totalCount').innerText = total;
+
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('contentSections').style.display = 'block';
+
+      } catch (err) {
+        document.getElementById('loadingState').innerHTML = `
+          <p style="color: #dc2626; font-weight: 600;">Could not load data.</p>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">
+            Please ensure your Google Sheet sharing is set to <strong>"Anyone with the link can view"</strong>.
+          </p>`;
+      }
+    }
+
+    function filterMEPs() {
+      const q = document.getElementById('mepSearch').value.toLowerCase().trim();
+      const allItems = document.querySelectorAll('.mep-item');
+      let visible = 0;
+
+      allItems.forEach(item => {
+        const name = item.getAttribute('data-name').toLowerCase();
+        const grp = item.getAttribute('data-group').toLowerCase();
+        const ctry = item.getAttribute('data-country').toLowerCase();
+
+        if (name.includes(q) || grp.includes(q) || ctry.includes(q)) {
+          item.style.display = '';
+          visible++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      document.getElementById('visibleCount').innerText = visible;
+    }
+
+    loadDelegation();
+  </script>
+</body>
+</html>
