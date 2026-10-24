@@ -527,7 +527,7 @@
     </p>
   </footer>
 
-  <script>
+<script>
     // Live CSV export link from your Google Sheet
     const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1d0vP-xvdAXo2Ue6Um94tTIH6Sb-tITtBD7J7ydLupL8/export?format=csv";
 
@@ -539,6 +539,15 @@
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase()
         .replace(/[^a-z]/g, '');
+    }
+
+    // Extracts the surname (UPPERCASE part) to ensure A-Z alphabetical sorting by surname
+    function getSurnameSortKey(name) {
+      if (!name) return '';
+      const parts = name.trim().split(/\s+/);
+      const uppers = parts.filter(p => p === p.toUpperCase() && p.replace(/[^A-Z]/g, '').length > 1);
+      const surname = uppers.length > 0 ? uppers.join(' ') : parts[parts.length - 1];
+      return norm(surname + ' ' + parts[0]);
     }
 
     const BODIES = {
@@ -783,7 +792,8 @@
         const vps = allDelegationMEPs.filter(m => m.role === 'vp');
         const members = allDelegationMEPs.filter(m => m.role === 'member');
 
-        members.sort((a, b) => a.name.localeCompare(b.name));
+        // SORTS BY SURNAME (UPPERCASE)
+        members.sort((a, b) => getSurnameSortKey(a.name).localeCompare(getSurnameSortKey(b.name)));
 
         if (chair) {
           chairSection.style.display = 'block';
@@ -845,17 +855,20 @@
             }
           });
         }
-        memberObjects.sort((a, b) => a.name.localeCompare(b.name));
+        // SORTS COMMITTEE MEMBERS BY SURNAME
+        memberObjects.sort((a, b) => getSurnameSortKey(a.name).localeCompare(getSurnameSortKey(b.name)));
         memberGrid.innerHTML = memberObjects.map(m => renderMemberCard(m, null)).join('');
         totalMEPs += memberObjects.length;
       }
 
-      // 3. CIVIL SOCIETY & WOMEN'S FORUM (PURE ALPHABETICAL)
+      // 3. CIVIL SOCIETY & WOMEN'S FORUM (PURE ALPHABETICAL BY SURNAME)
       else if (config.type === 'alphabetical_only') {
         membersHeaderTitle.innerText = "All Participating MEPs";
         memberTag.innerText = "Alphabetical (A–Z)";
 
-        const allSorted = [...allDelegationMEPs].sort((a, b) => a.name.localeCompare(b.name));
+        const allSorted = [...allDelegationMEPs].sort((a, b) => 
+          getSurnameSortKey(a.name).localeCompare(getSurnameSortKey(b.name))
+        );
         memberGrid.innerHTML = allSorted.map(m => renderMemberCard(m, null)).join('');
         totalMEPs = allSorted.length;
       }
@@ -909,6 +922,5 @@
     }
 
     loadDelegation();
-  </script>
-</body>
+  </script></body>
 </html>
