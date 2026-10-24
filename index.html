@@ -93,20 +93,76 @@
       padding: 24px 12px 60px;
     }
 
+    /* CONTROLS (DROPDOWN + SEARCH) */
     .controls-wrapper {
       background: #fff;
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 12px 14px;
+      padding: 16px;
       margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .filter-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .select-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .select-wrap select {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 40px 11px 14px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--navy-900);
+      outline: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .select-wrap select:focus {
+      border-color: var(--eu-blue);
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.12);
+    }
+    .select-wrap svg {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--eu-blue);
+    }
+
+    .search-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
       justify-content: space-between;
-      box-shadow: var(--shadow-sm);
     }
-    .search-box { flex: 1; min-width: 200px; position: relative; }
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
     .search-box input {
       width: 100%;
       padding: 9px 14px 9px 36px;
@@ -127,7 +183,11 @@
       transform: translateY(-50%);
       color: var(--text-muted);
     }
-    .counter { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+    .counter {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
     .counter strong { color: var(--eu-blue); }
 
     .section-header {
@@ -371,7 +431,7 @@
   <header>
     <div class="badge-top">★ Euro-Latin American Parliamentary Assembly ★</div>
     <h1>EuroLat Tenerife Delegation</h1>
-    <p class="subtitle">Official Directory of Participating Members of the European Parliament</p>
+    <p class="subtitle" id="bodySubtitle">Official Directory of Participating Members of the European Parliament</p>
     <div class="location-bar">
       <span>📍 Santa Cruz de Tenerife, Spain</span>
       <span>•</span>
@@ -382,44 +442,70 @@
   <div class="container">
 
     <div class="controls-wrapper">
-      <div class="search-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="mepSearch" placeholder="Search by name, country, or political group..." onkeyup="filterMEPs()">
+      <!-- DROP-DOWN COMMITTEE SELECTOR -->
+      <div class="filter-group">
+        <label for="bodySelect" class="filter-label">Meeting / Committee View:</label>
+        <div class="select-wrap">
+          <select id="bodySelect" onchange="switchBody()">
+            <option value="plenary">Plenary</option>
+            <option value="pol_affairs">Committee on Political Affairs, Security and Human Rights</option>
+            <option value="econ_affairs">Committee on Economic, Financial and Trade Affairs</option>
+            <option value="sust_dev">Committee on Sustainable Development, Environment, Energy Policy, Research, Innovation and Technology</option>
+            <option value="soc_affairs">Committee on Social Affairs, Youth and Children, Human Exchanges, Education and Culture</option>
+            <option value="womens_forum">Women's Forum</option>
+            <option value="working_group">Working group on security, terrorism, hybrid threats and the fight against organised crime and new forms of crime</option>
+            <option value="civil_society">Meetings with Civil Society</option>
+          </select>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
       </div>
-      <div class="counter">
-        Showing <strong id="visibleCount">0</strong> of <span id="totalCount">0</span> Participating MEPs
+
+      <!-- SEARCH INPUT -->
+      <div class="search-row">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="mepSearch" placeholder="Search by name, country, or group..." onkeyup="filterMEPs()">
+        </div>
+        <div class="counter">
+          Showing <strong id="visibleCount">0</strong> of <span id="totalCount">0</span> MEPs
+        </div>
       </div>
     </div>
 
     <div id="loadingState">Loading delegation list...</div>
 
+    <!-- DYNAMIC SECTIONS -->
     <div id="contentSections" style="display: none;">
-      <!-- CHAIR -->
-      <section id="section-chair">
+      
+      <!-- CHAIR SECTION (Shown when a body has a Co-Chair) -->
+      <section id="section-chair" style="display: none;">
         <div class="section-header">
           <h2>Assembly Leadership</h2>
-          <span class="section-tag">Co-Chair</span>
+          <span class="section-tag" id="chairTag">Co-Chair</span>
         </div>
         <div class="chair-wrapper" id="chairContainer"></div>
       </section>
 
-      <!-- VICE-CHAIRS -->
-      <section id="section-vps">
+      <!-- VICE-CHAIRS / BUREAU SECTION (Shown for Plenary VPs or Committee Vice-Presidents) -->
+      <section id="section-vps" style="display: none;">
         <div class="section-header">
-          <h2>Vice-Chairs of the Assembly</h2>
+          <h2 id="vpsHeaderTitle">Vice-Chairs of the Assembly</h2>
           <span class="section-tag" id="vpTag">Executive Bureau</span>
         </div>
         <div class="mep-grid" id="vpGrid"></div>
       </section>
 
-      <!-- PARTICIPATING MEMBERS -->
+      <!-- MEMBERS SECTION (Always visible) -->
       <section id="section-members">
         <div class="section-header">
-          <h2>Participating Members</h2>
+          <h2 id="membersHeaderTitle">Participating Members</h2>
           <span class="section-tag" id="memberTag">Alphabetical Directory</span>
         </div>
         <div class="mep-grid" id="memberGrid"></div>
       </section>
+
     </div>
 
   </div>
@@ -434,6 +520,112 @@
   <script>
     // Live CSV export link from your Google Sheet
     const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1d0vP-xvdAXo2Ue6Um94tTIH6Sb-tITtBD7J7ydLupL8/export?format=csv";
+
+    let allDelegationMEPs = [];
+
+    // Normalization helper for name matching
+    function norm(str) {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z]/g, '');
+    }
+
+    // Committee and working group rosters
+    const BODIES = {
+      plenary: {
+        title: "Official Directory of Participating Members of the European Parliament",
+        type: "plenary"
+      },
+      sust_dev: {
+        title: "Committee on Sustainable Development, Environment, Energy Policy, Research, Innovation and Technology",
+        type: "committee",
+        coChairs: ["Marc ANGEL"],
+        members: [
+          "Herbert DORFMANN",
+          "Esther HERRANZ GARCÍA",
+          "Raúl DE LA HOZ QUINTANO",
+          "Nora JUNCO GARCÍA",
+          "Elena NEVADO DEL CAMPO",
+          "Elena SANCHO MURILLO",
+          "Hermann TERTSCH",
+          "Raffaele STANCANELLI",
+          "Mariateresa VIVALDINI"
+        ]
+      },
+      pol_affairs: {
+        title: "Committee on Political Affairs, Security and Human Rights",
+        type: "committee",
+        coChairs: ["Sandro RUOTOLO"],
+        members: [
+          "Davor Ivo STIER",
+          "Javi LÓPEZ",
+          "Isilda GOMES",
+          "Hermann TERTSCH",
+          "Silvia SARDONE",
+          "Nicolas BAY",
+          "Carlo FIDANZA",
+          "Antonio LÓPEZ-ISTÚRIZ WHITE",
+          "Esteban GONZÁLEZ PONS",
+          "Ilia LAZAROV",
+          "Gabriel MATO",
+          "Juan Fernando LÓPEZ AGUILAR",
+          "Susanna CECCARDI"
+        ]
+      },
+      econ_affairs: {
+        title: "Committee on Economic, Financial and Trade Affairs",
+        type: "committee",
+        coChairs: ["Herbert DORFMANN"],
+        vps: [{ name: "Evelyn REGNER", label: "1st Vice-President" }],
+        members: [
+          "Raúl DE LA HOZ QUINTANO",
+          "Elena NEVADO DEL CAMPO",
+          "Borja GIMÉNEZ LARRAZ",
+          "Markus FERBER",
+          "Laura BALLARÍN CEREZA",
+          "Elena SANCHO MURILLO",
+          "Raffaele STANCANELLI",
+          "Nora JUNCO GARCÍA",
+          "Jessika VAN LEEUWEN"
+        ]
+      },
+      soc_affairs: {
+        title: "Committee on Social Affairs, Youth and Children, Human Exchanges, Education and Culture",
+        type: "committee",
+        members: [
+          "Davor Ivo STIER",
+          "Alicia HOMS GINEL",
+          "Leire PAJÍN",
+          "José CEPEDA",
+          "Ilia LAZAROV",
+          "Borja GIMÉNEZ LARRAZ",
+          "Markus FERBER",
+          "Sandro RUOTOLO",
+          "Şerban Dimitrie STURDZA",
+          "Jessika VAN LEEUWEN"
+        ]
+      },
+      working_group: {
+        title: "Working group on security, terrorism, hybrid threats and the fight against organised crime",
+        type: "committee",
+        coChairs: ["José CEPEDA"],
+        members: [
+          "Elena NEVADO DEL CAMPO",
+          "Hermann TERTSCH",
+          "Nicolas BAY"
+        ]
+      },
+      womens_forum: {
+        title: "Euro-Latin American Women's Forum",
+        type: "alphabetical_only"
+      },
+      civil_society: {
+        title: "Meetings with Civil Society",
+        type: "alphabetical_only"
+      }
+    };
 
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
@@ -467,6 +659,32 @@
       return rows;
     }
 
+    function findMEP(queryName) {
+      const target = norm(queryName);
+      let found = allDelegationMEPs.find(m => norm(m.name) === target);
+      if (found) return found;
+
+      // Partial / subset matching
+      found = allDelegationMEPs.find(m => {
+        const candidate = norm(m.name);
+        return candidate.includes(target) || target.includes(candidate);
+      });
+      if (found) return found;
+
+      // Special fallback for Esteban GONZÁLEZ PONS if not present in the base sheet
+      if (target.includes('gonzalezpons') || target.includes('esteban')) {
+        return {
+          id: '125027',
+          name: 'Esteban GONZÁLEZ PONS',
+          group: 'EPP',
+          country: 'Spain',
+          flag: '🇪🇸',
+          role: 'member'
+        };
+      }
+      return null;
+    }
+
     function getGroupClass(grp) {
       const g = (grp || '').toLowerCase();
       if (g.includes('epp')) return 'grp-epp';
@@ -489,95 +707,161 @@
       if (fb) fb.style.display = 'flex';
     }
 
-    async function loadDelegation() {
-      try {
-        const res = await fetch(SHEET_CSV_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        
-        const csvText = await res.text();
-        const data = parseCSV(csvText);
+    function renderChairCard(mep, roleTitle, badgeText) {
+      return `
+        <div class="chair-card mep-item" data-name="${mep.name}" data-group="${mep.group}" data-country="${mep.country}">
+          <div class="chair-photo-wrap">
+            <img src="https://www.europarl.europa.eu/mepphoto/${mep.id}.jpg" alt="${mep.name}" onerror="showFallback(this)">
+            <div class="initials-fallback">${getInitials(mep.name)}</div>
+          </div>
+          <div class="chair-info">
+            <div class="chair-title">★ ${roleTitle || 'Co-Chair'}</div>
+            <h3>${mep.name}</h3>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 8px;">
+              <span class="badge-group ${getGroupClass(mep.group)}">${mep.group}</span>
+              <span class="badge-country">${mep.flag || ''} ${mep.country} ${mep.party ? '(' + mep.party + ')' : ''}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
-        const chair = data.find(m => m.role === 'co-chair');
-        const vps = data.filter(m => m.role === 'vp');
-        const members = data.filter(m => m.role === 'member');
+    function renderMemberCard(mep, roleBadge) {
+      return `
+        <div class="mep-card mep-item" data-name="${mep.name}" data-group="${mep.group}" data-country="${mep.country}">
+          <div class="card-photo-container">
+            <img src="https://www.europarl.europa.eu/mepphoto/${mep.id}.jpg" alt="${mep.name}" onerror="showFallback(this)">
+            <div class="initials-fallback">${getInitials(mep.name)}</div>
+          </div>
+          <div class="mep-details">
+            ${roleBadge ? `<span class="vp-role-pill">${roleBadge}</span>` : ''}
+            <div class="mep-name">${mep.name}</div>
+            <div class="mep-meta">
+              <span class="badge-group ${getGroupClass(mep.group)}">${mep.group}</span>
+              <span class="badge-country">${mep.flag || ''} ${mep.country}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
-        // Alphabetical sort by surname
+    function switchBody() {
+      const key = document.getElementById('bodySelect').value;
+      const config = BODIES[key];
+      document.getElementById('bodySubtitle').innerText = config.title;
+
+      const chairSection = document.getElementById('section-chair');
+      const vpsSection = document.getElementById('section-vps');
+      const chairContainer = document.getElementById('chairContainer');
+      const vpGrid = document.getElementById('vpGrid');
+      const memberGrid = document.getElementById('memberGrid');
+      const vpsHeaderTitle = document.getElementById('vpsHeaderTitle');
+      const membersHeaderTitle = document.getElementById('membersHeaderTitle');
+      const memberTag = document.getElementById('memberTag');
+
+      // Reset
+      chairSection.style.display = 'none';
+      vpsSection.style.display = 'none';
+      chairContainer.innerHTML = '';
+      vpGrid.innerHTML = '';
+      memberGrid.innerHTML = '';
+
+      let totalMEPs = 0;
+
+      // 1. PLENARY
+      if (config.type === 'plenary') {
+        vpsHeaderTitle.innerText = "Vice-Chairs of the Assembly";
+        membersHeaderTitle.innerText = "Participating Members";
+        memberTag.innerText = "Alphabetical Directory";
+
+        const chair = allDelegationMEPs.find(m => m.role === 'co-chair');
+        const vps = allDelegationMEPs.filter(m => m.role === 'vp');
+        const members = allDelegationMEPs.filter(m => m.role === 'member');
+
         members.sort((a, b) => a.name.localeCompare(b.name));
 
-        // 1. Chair
         if (chair) {
-          document.getElementById('chairContainer').innerHTML = `
-            <div class="chair-card mep-item" data-name="${chair.name}" data-group="${chair.group}" data-country="${chair.country}">
-              <div class="chair-photo-wrap">
-                <img src="https://www.europarl.europa.eu/mepphoto/${chair.id}.jpg" alt="${chair.name}" onerror="showFallback(this)">
-                <div class="initials-fallback">${getInitials(chair.name)}</div>
-              </div>
-              <div class="chair-info">
-                <div class="chair-title">★ ${chair.roleLabel || 'Co-Chair of EuroLat'}</div>
-                <h3>${chair.name}</h3>
-                <p style="color: var(--text-muted); margin-bottom: 14px; max-width: 650px; font-size: 0.9rem;">
-                  Chair of the European Parliament Delegation to the Euro-Latin American Parliamentary Assembly.
-                </p>
-                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                  <span class="badge-group ${getGroupClass(chair.group)}">${chair.group}</span>
-                  <span class="badge-country">${chair.flag || ''} ${chair.country} ${chair.party ? '(' + chair.party + ')' : ''}</span>
-                </div>
-              </div>
-            </div>
-          `;
+          chairSection.style.display = 'block';
+          chairContainer.innerHTML = renderChairCard(chair, chair.roleLabel || 'Co-Chair of EuroLat');
+          totalMEPs++;
         }
 
-        // 2. VPs
-        document.getElementById('vpTag').innerText = `${vps.length} Vice-Chairs`;
-        document.getElementById('vpGrid').innerHTML = vps.map(vp => `
-          <div class="mep-card mep-item" data-name="${vp.name}" data-group="${vp.group}" data-country="${vp.country}">
-            <div class="card-photo-container">
-              <img src="https://www.europarl.europa.eu/mepphoto/${vp.id}.jpg" alt="${vp.name}" onerror="showFallback(this)">
-              <div class="initials-fallback">${getInitials(vp.name)}</div>
-            </div>
-            <div class="mep-details">
-              <span class="vp-role-pill">${vp.roleLabel}</span>
-              <div class="mep-name">${vp.name}</div>
-              <div class="mep-meta">
-                <span class="badge-group ${getGroupClass(vp.group)}">${vp.group}</span>
-                <span class="badge-country">${vp.flag || ''} ${vp.country}</span>
-              </div>
-            </div>
-          </div>
-        `).join('');
+        if (vps.length > 0) {
+          vpsSection.style.display = 'block';
+          document.getElementById('vpTag').innerText = `${vps.length} Vice-Chairs`;
+          vpGrid.innerHTML = vps.map(vp => renderMemberCard(vp, vp.roleLabel)).join('');
+          totalMEPs += vps.length;
+        }
 
-        // 3. Alphabetical Members
-        document.getElementById('memberTag').innerText = `${members.length} Members`;
-        document.getElementById('memberGrid').innerHTML = members.map(m => `
-          <div class="mep-card mep-item" data-name="${m.name}" data-group="${m.group}" data-country="${m.country}">
-            <div class="card-photo-container">
-              <img src="https://www.europarl.europa.eu/mepphoto/${m.id}.jpg" alt="${m.name}" onerror="showFallback(this)">
-              <div class="initials-fallback">${getInitials(m.name)}</div>
-            </div>
-            <div class="mep-details">
-              <div class="mep-name">${m.name}</div>
-              <div class="mep-meta">
-                <span class="badge-group ${getGroupClass(m.group)}">${m.group}</span>
-                <span class="badge-country">${m.flag || ''} ${m.country}</span>
-              </div>
-            </div>
-          </div>
-        `).join('');
-
-        const total = data.length;
-        document.getElementById('visibleCount').innerText = total;
-        document.getElementById('totalCount').innerText = total;
-
-        document.getElementById('loadingState').style.display = 'none';
-        document.getElementById('contentSections').style.display = 'block';
-
-      } catch (err) {
-        document.getElementById('loadingState').innerHTML = `
-          <p style="color: #dc2626; font-weight: 600;">Could not load data.</p>
-          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">
-            Please check your Sheet sharing settings.
-          </p>`;
+        memberGrid.innerHTML = members.map(m => renderMemberCard(m, null)).join('');
+        totalMEPs += members.length;
       }
+
+      // 2. COMMITTEES & WORKING GROUP
+      else if (config.type === 'committee') {
+        membersHeaderTitle.innerText = "Committee Members";
+        memberTag.innerText = "Members (A–Z)";
+
+        // Co-Chair
+        if (config.coChairs && config.coChairs.length > 0) {
+          chairSection.style.display = 'block';
+          document.getElementById('chairTag').innerText = "Co-Chair";
+          let chairHtml = '';
+          config.coChairs.forEach(name => {
+            const m = findMEP(name);
+            if (m) {
+              chairHtml += renderChairCard(m, 'Co-Chair of Committee');
+              totalMEPs++;
+            }
+          });
+          chairContainer.innerHTML = chairHtml;
+        }
+
+        // Vice Presidents (e.g. Econ Committee)
+        if (config.vps && config.vps.length > 0) {
+          vpsSection.style.display = 'block';
+          vpsHeaderTitle.innerText = "Committee Vice-President";
+          document.getElementById('vpTag').innerText = "Bureau";
+          let vpHtml = '';
+          config.vps.forEach(vpItem => {
+            const m = findMEP(vpItem.name);
+            if (m) {
+              vpHtml += renderMemberCard(m, vpItem.label);
+              totalMEPs++;
+            }
+          });
+          vpGrid.innerHTML = vpHtml;
+        }
+
+        // Members (Alphabetical)
+        const memberObjects = [];
+        if (config.members) {
+          config.members.forEach(name => {
+            const m = findMEP(name);
+            if (m && !memberObjects.some(existing => existing.name === m.name)) {
+              memberObjects.push(m);
+            }
+          });
+        }
+        memberObjects.sort((a, b) => a.name.localeCompare(b.name));
+        memberGrid.innerHTML = memberObjects.map(m => renderMemberCard(m, null)).join('');
+        totalMEPs += memberObjects.length;
+      }
+
+      // 3. CIVIL SOCIETY & WOMEN'S FORUM (PURE ALPHABETICAL)
+      else if (config.type === 'alphabetical_only') {
+        membersHeaderTitle.innerText = "All Participating MEPs";
+        memberTag.innerText = "Alphabetical (A–Z)";
+
+        const allSorted = [...allDelegationMEPs].sort((a, b) => a.name.localeCompare(b.name));
+        memberGrid.innerHTML = allSorted.map(m => renderMemberCard(m, null)).join('');
+        totalMEPs = allSorted.length;
+      }
+
+      // Reset and trigger search filter
+      document.getElementById('mepSearch').value = '';
+      document.getElementById('totalCount').innerText = totalMEPs;
+      filterMEPs();
     }
 
     function filterMEPs() {
@@ -586,11 +870,11 @@
       let visible = 0;
 
       allItems.forEach(item => {
-        const name = item.getAttribute('data-name').toLowerCase();
-        const grp = item.getAttribute('data-group').toLowerCase();
-        const ctry = item.getAttribute('data-country').toLowerCase();
+        const name = (item.getAttribute('data-name') || '').toLowerCase();
+        const grp = (item.getAttribute('data-group') || '').toLowerCase();
+        const ctry = (item.getAttribute('data-country') || '').toLowerCase();
 
-        if (name.includes(q) || grp.includes(q) || ctry.includes(q)) {
+        if (!q || name.includes(q) || grp.includes(q) || ctry.includes(q)) {
           item.style.display = '';
           visible++;
         } else {
@@ -599,6 +883,29 @@
       });
 
       document.getElementById('visibleCount').innerText = visible;
+    }
+
+    async function loadDelegation() {
+      try {
+        const res = await fetch(SHEET_CSV_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        
+        const csvText = await res.text();
+        allDelegationMEPs = parseCSV(csvText);
+
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('contentSections').style.display = 'block';
+
+        // Render initial view (Plenary)
+        switchBody();
+
+      } catch (err) {
+        document.getElementById('loadingState').innerHTML = `
+          <p style="color: #dc2626; font-weight: 600;">Could not load data.</p>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">
+            Please check your Sheet sharing settings.
+          </p>`;
+      }
     }
 
     loadDelegation();
