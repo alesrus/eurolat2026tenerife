@@ -30,9 +30,9 @@
       --text-main: #1f2937;
       --text-muted: #6b7280;
       --border: #e2e8f0;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 18px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
       --shadow-sm: 0 2px 6px rgba(0, 35, 102, 0.05);
       --shadow-md: 0 8px 24px rgba(0, 35, 102, 0.08);
       --transition: all 0.2s ease-in-out;
@@ -43,13 +43,13 @@
       font-family: 'Inter', sans-serif;
       background: var(--body-bg);
       color: var(--text-main);
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
     header {
       background: linear-gradient(135deg, #05142b 0%, #003399 60%, #0d47a1 100%);
       color: #fff;
-      padding: 38px 16px 30px;
+      padding: 34px 14px 26px;
       text-align: center;
       border-bottom: 4px solid var(--eu-gold);
     }
@@ -58,39 +58,39 @@
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 204, 0, 0.4);
       color: #ffe066;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 4px 12px;
       border-radius: 999px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     h1 {
       font-family: 'Cinzel', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-size: clamp(1.5rem, 3.2vw, 2.5rem);
       margin-bottom: 6px;
     }
     .subtitle {
-      font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+      font-size: clamp(0.82rem, 1.4vw, 1.02rem);
       color: #e0e7ff;
       max-width: 780px;
-      margin: 0 auto 10px;
+      margin: 0 auto 8px;
     }
     .location-bar {
       display: inline-flex;
       gap: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #fce788;
       background: rgba(0,0,0,0.25);
-      padding: 4px 14px;
+      padding: 4px 12px;
       border-radius: 999px;
     }
 
     .container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 24px 12px 60px;
+      padding: 20px 10px 50px;
     }
 
     /* CONTROLS (DROPDOWN + SEARCH) */
@@ -98,11 +98,11 @@
       background: #fff;
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 16px;
-      margin-bottom: 24px;
+      padding: 14px;
+      margin-bottom: 20px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       box-shadow: var(--shadow-sm);
     }
 
@@ -112,7 +112,7 @@
       gap: 6px;
     }
     .filter-label {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--navy-900);
       text-transform: uppercase;
@@ -128,9 +128,9 @@
       -webkit-appearance: none;
       background-color: #f8fafc;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 11px 40px 11px 14px;
-      font-size: 0.95rem;
+      border-radius: 8px;
+      padding: 10px 36px 10px 12px;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--navy-900);
       outline: none;
@@ -144,7 +144,7 @@
     }
     .select-wrap svg {
       position: absolute;
-      right: 14px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       pointer-events: none;
@@ -154,21 +154,21 @@
     .search-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
       justify-content: space-between;
     }
     .search-box {
       flex: 1;
-      min-width: 220px;
+      min-width: 200px;
       position: relative;
     }
     .search-box input {
       width: 100%;
-      padding: 9px 14px 9px 36px;
+      padding: 8px 12px 8px 34px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       outline: none;
       transition: var(--transition);
     }
@@ -184,7 +184,7 @@
       color: var(--text-muted);
     }
     .counter {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       font-weight: 500;
     }
@@ -193,9 +193,9 @@
     .section-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin: 30px 0 16px;
-      padding-bottom: 8px;
+      gap: 8px;
+      margin: 24px 0 14px;
+      padding-bottom: 6px;
       border-bottom: 2px solid var(--border);
       position: relative;
     }
@@ -204,17 +204,17 @@
       position: absolute;
       left: 0;
       bottom: -2px;
-      width: 50px;
+      width: 44px;
       height: 2px;
       background: var(--eu-blue);
     }
-    .section-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--navy-900); }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; color: var(--navy-900); }
     .section-header .section-tag {
       background: #e0e7ff;
       color: var(--eu-blue);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 999px;
       text-transform: uppercase;
     }
@@ -222,19 +222,19 @@
     /* GRID SYSTEM: Desktop default */
     .mep-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
     }
 
     /* CHAIR CARD */
-    .chair-wrapper { margin-bottom: 22px; }
+    .chair-wrapper { margin-bottom: 18px; }
     .chair-card {
       background: linear-gradient(135deg, #ffffff 0%, #fffdf2 100%);
       border: 2px solid var(--eu-gold);
       border-radius: var(--radius-lg);
-      padding: 22px;
+      padding: 18px;
       display: flex;
-      gap: 22px;
+      gap: 18px;
       align-items: center;
       box-shadow: 0 8px 24px rgba(255, 204, 0, 0.14), var(--shadow-md);
       position: relative;
@@ -247,15 +247,15 @@
       right: -36px;
       background: var(--eu-gold);
       color: #0b1a30;
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       font-weight: 800;
       letter-spacing: 0.1em;
       padding: 4px 40px;
       transform: rotate(45deg);
     }
     .chair-photo-wrap {
-      width: 140px;
-      height: 180px;
+      width: 130px;
+      height: 168px;
       flex-shrink: 0;
       border-radius: 10px;
       overflow: hidden;
@@ -264,8 +264,8 @@
       position: relative;
     }
     .chair-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .chair-info h3 { font-size: 1.45rem; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
-    .chair-info .chair-title { font-size: 0.92rem; font-weight: 600; color: #b45309; margin-bottom: 10px; }
+    .chair-info h3 { font-size: 1.35rem; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
+    .chair-info .chair-title { font-size: 0.88rem; font-weight: 600; color: #b45309; margin-bottom: 8px; }
 
     /* MEMBER CARDS */
     .mep-card {
@@ -281,7 +281,7 @@
     .mep-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
     .card-photo-container {
       width: 100%;
-      height: 250px;
+      height: 230px;
       position: relative;
       background: #f1f5f9;
       display: flex;
@@ -301,52 +301,52 @@
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       color: #94a3b8;
       background: #e2e8f0;
     }
     .mep-details {
-      padding: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
     .vp-role-pill {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
       text-transform: uppercase;
       color: #92400e;
       background: #fef3c7;
       border: 1px solid #fde68a;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 999px;
       align-self: flex-start;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     .mep-name {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--navy-900);
-      margin-bottom: 6px;
-      line-height: 1.3;
+      margin-bottom: 5px;
+      line-height: 1.25;
     }
     .mep-meta {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       margin-top: auto;
-      font-size: 0.78rem;
+      font-size: 0.74rem;
     }
     .badge-group {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      padding: 2px 6px;
+      padding: 2px 5px;
       border-radius: 4px;
     }
     .badge-country {
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       font-weight: 500;
     }
@@ -363,8 +363,8 @@
 
     #loadingState {
       text-align: center;
-      padding: 50px 16px;
-      font-size: 1rem;
+      padding: 40px 14px;
+      font-size: 0.95rem;
       color: var(--text-muted);
     }
 
@@ -372,56 +372,66 @@
       background: #0b1a30;
       color: #94a3b8;
       text-align: center;
-      padding: 26px 16px;
-      font-size: 0.8rem;
+      padding: 22px 14px;
+      font-size: 0.78rem;
       border-top: 1px solid #1e293b;
     }
     footer a { color: var(--eu-gold); text-decoration: none; }
 
-    /* MOBILE: EXACTLY 2 MEPS PER ROW */
+    /* MOBILE: EXACTLY 3 PHOTOS / MEPS PER ROW */
     @media (max-width: 640px) {
-      .container { padding: 16px 8px 50px; }
+      .container { padding: 12px 6px 40px; }
       
       .mep-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
       }
 
       .card-photo-container {
-        height: 190px;
+        height: 135px;
       }
 
       .chair-card {
         flex-direction: column;
         text-align: center;
-        padding: 16px 12px;
+        padding: 14px 8px;
+        gap: 10px;
       }
       .chair-photo-wrap {
-        width: 120px;
-        height: 155px;
+        width: 105px;
+        height: 138px;
         margin: 0 auto;
       }
-      .chair-info h3 { font-size: 1.25rem; }
-      .chair-info .chair-title { justify-content: center; }
+      .chair-info h3 { font-size: 1.15rem; }
+      .chair-info .chair-title { font-size: 0.8rem; justify-content: center; }
 
       .mep-details {
-        padding: 8px 8px 10px;
+        padding: 6px 5px 8px;
       }
       .mep-name {
-        font-size: 0.84rem;
-        margin-bottom: 4px;
+        font-size: 0.72rem;
+        margin-bottom: 3px;
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
       .vp-role-pill {
-        font-size: 0.6rem;
-        padding: 1px 5px;
-        margin-bottom: 4px;
+        font-size: 0.55rem;
+        padding: 1px 4px;
+        margin-bottom: 3px;
+        letter-spacing: 0;
       }
       .badge-group {
-        font-size: 0.62rem;
-        padding: 1px 5px;
+        font-size: 0.58rem;
+        padding: 1px 3px;
       }
       .badge-country {
-        font-size: 0.72rem;
+        font-size: 0.65rem;
+      }
+      .initials-fallback {
+        font-size: 1.3rem;
       }
     }
   </style>
@@ -523,7 +533,6 @@
 
     let allDelegationMEPs = [];
 
-    // Normalization helper for name matching
     function norm(str) {
       return (str || '')
         .normalize('NFD')
@@ -532,7 +541,6 @@
         .replace(/[^a-z]/g, '');
     }
 
-    // Committee and working group rosters
     const BODIES = {
       plenary: {
         title: "Official Directory of Participating Members of the European Parliament",
@@ -664,14 +672,12 @@
       let found = allDelegationMEPs.find(m => norm(m.name) === target);
       if (found) return found;
 
-      // Partial / subset matching
       found = allDelegationMEPs.find(m => {
         const candidate = norm(m.name);
         return candidate.includes(target) || target.includes(candidate);
       });
       if (found) return found;
 
-      // Special fallback for Esteban GONZÁLEZ PONS if not present in the base sheet
       if (target.includes('gonzalezpons') || target.includes('esteban')) {
         return {
           id: '125027',
@@ -707,7 +713,7 @@
       if (fb) fb.style.display = 'flex';
     }
 
-    function renderChairCard(mep, roleTitle, badgeText) {
+    function renderChairCard(mep, roleTitle) {
       return `
         <div class="chair-card mep-item" data-name="${mep.name}" data-group="${mep.group}" data-country="${mep.country}">
           <div class="chair-photo-wrap">
@@ -717,7 +723,7 @@
           <div class="chair-info">
             <div class="chair-title">★ ${roleTitle || 'Co-Chair'}</div>
             <h3>${mep.name}</h3>
-            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 8px;">
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 6px;">
               <span class="badge-group ${getGroupClass(mep.group)}">${mep.group}</span>
               <span class="badge-country">${mep.flag || ''} ${mep.country} ${mep.party ? '(' + mep.party + ')' : ''}</span>
             </div>
@@ -759,7 +765,6 @@
       const membersHeaderTitle = document.getElementById('membersHeaderTitle');
       const memberTag = document.getElementById('memberTag');
 
-      // Reset
       chairSection.style.display = 'none';
       vpsSection.style.display = 'none';
       chairContainer.innerHTML = '';
@@ -802,7 +807,6 @@
         membersHeaderTitle.innerText = "Committee Members";
         memberTag.innerText = "Members (A–Z)";
 
-        // Co-Chair
         if (config.coChairs && config.coChairs.length > 0) {
           chairSection.style.display = 'block';
           document.getElementById('chairTag').innerText = "Co-Chair";
@@ -817,7 +821,6 @@
           chairContainer.innerHTML = chairHtml;
         }
 
-        // Vice Presidents (e.g. Econ Committee)
         if (config.vps && config.vps.length > 0) {
           vpsSection.style.display = 'block';
           vpsHeaderTitle.innerText = "Committee Vice-President";
@@ -833,7 +836,6 @@
           vpGrid.innerHTML = vpHtml;
         }
 
-        // Members (Alphabetical)
         const memberObjects = [];
         if (config.members) {
           config.members.forEach(name => {
@@ -858,7 +860,6 @@
         totalMEPs = allSorted.length;
       }
 
-      // Reset and trigger search filter
       document.getElementById('mepSearch').value = '';
       document.getElementById('totalCount').innerText = totalMEPs;
       filterMEPs();
@@ -896,7 +897,6 @@
         document.getElementById('loadingState').style.display = 'none';
         document.getElementById('contentSections').style.display = 'block';
 
-        // Render initial view (Plenary)
         switchBody();
 
       } catch (err) {
